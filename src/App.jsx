@@ -8,7 +8,9 @@ export default function App() {
 
   const hasGameStarted = squares.some((square) => square !== null);
 
-  const winner = calculateWinner(squares);
+  const winState = calculateWinner(squares);
+  const winner = winState?.winner;
+  const winningLine = winState?.line;
   const isTie = !winner && squares.every((square) => square !== null);
 
   const handleClick = (index) => {
