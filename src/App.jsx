@@ -58,6 +58,7 @@ export default function App() {
               value={squares[i]}
               // Parent manages the square's state and 🆔. Square is more presentational.
               onClick={() => handleClick(i)}
+              isWinning={winningLine?.includes(i)}
             />
           ))}
         </div>
@@ -79,10 +80,14 @@ export default function App() {
   );
 }
 
-function Square({ value, onClick }) {
+function Square({ value, onClick, isWinning }) {
   return (
     <button
-      className="text-9xl font-bold size-36 text-center text-white hover:bg-slate-700 transition-colors duration-200 cursor-pointer"
+      className={`text-9xl font-bold size-36 text-center text-white transition-colors duration-200 cursor-pointer ${
+        isWinning
+          ? "drop-shadow-2xl drop-shadow-amber-300"
+          : "hover:bg-slate-700"
+      }`}
       onClick={onClick}
     >
       {value}
