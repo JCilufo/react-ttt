@@ -5,6 +5,7 @@ import { calculateWinner } from "./lib";
 export default function App() {
   const [turn, setTurn] = useState("X"); // "X" is first turn
   const [squares, setSquares] = useState(Array(9).fill(null));
+  const [moveCount, setMoveCount] = useState(0);
 
   // Derived state
   const hasGameStarted = squares.some((square) => square !== null);
@@ -28,19 +29,29 @@ export default function App() {
 
     setSquares(newSquares);
     setTurn((prev) => (prev === "X" ? "O" : "X"));
+    setMoveCount((count) => count + 1);
   };
 
   const handleReset = () => {
     setSquares(Array(9).fill(null));
     setTurn("X");
+    setMoveCount(0);
   };
 
   return (
     <main className="w-screen h-screen flex justify-center items-center bg-gray-900">
       <div className="flex flex-col items-center gap-6">
         {/* Status message */}
-        <header className="text-3xl font-bold text-white">
-          <h1>{getStatusMessage()}</h1>
+        <header className="text-center">
+          <h1 className="text-3xl font-bold text-white">
+            {getStatusMessage()}
+          </h1>
+          {/* Move count display */}
+          <p className="mt-2 text-lg text-gray-300">
+            {moveCount === 0
+              ? "No moves yet"
+              : `${moveCount} move${moveCount === 1 ? "" : "s"}`}
+          </p>
         </header>
 
         <div className="relative grid grid-cols-3 w-fit gap-0">
